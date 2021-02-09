@@ -1,8 +1,9 @@
 #include "Engine.h"
 
+
 std::unique_ptr<Engine> Engine::engineInstance = nullptr;
 
-Engine::Engine() :window(nullptr), isRunning(false){}
+Engine::Engine() :window(nullptr), isRunning(false), fps(60), gameInterface(nullptr){}
 
 Engine::~Engine() {
 }
@@ -15,44 +16,88 @@ Engine* Engine::GetInstance() {
 }
 
 bool Engine::OnCreate(std::string name_, int width_, int height_) {
+	Debug::OnCreate();
 	window = new Window();
 	if (!window->OnCreate(name_, width_, height_)) {
-		std::cout << "Window failed to initialize" << std::endl;
+		Debug::FatalError("Window failed to initialize", "Engine.cpp", __LINE__);
 		OnDestroy();
 		return isRunning = false;
 	}
 
+	if (gameInterface) {
+		if (!gameInterface->OnCreate()) {
+			Debug::FatalError("Game failed to initialize", "Engine.cpp", __LINE__);
+			OnDestroy();
+			return isRunning = false;
+		}
+	}
+
+
+	Debug::Info("Engine Created Successfully!", "Engine.cpp", __LINE__);
+	timer = new Timer();
+	timer->Start();
 	return isRunning = true;
 }
 
 void Engine::Run() {
 	while (isRunning) {
-		Update(0.016f);
+		timer->UpdateFrameTicks();
+		Update(timer->GetDeltaTime());
 		Render();
+		SDL_Delay(timer->GetSleepTime(fps));
 	}
-	if (!isRunning) {
-		OnDestroy();
-	}
+
+	//Destroy once not running
+	OnDestroy();
+
 }
 
-bool Engine::GetIsRunning() {
+void Engine::Exit(){
+	isRunning = false;
+}
+
+bool Engine::GetIsRunning() const{
 	return isRunning;
 }
 
-void Engine::Update(const float deltaTime_) {
+int Engine::GetCurrentScene() const
+{
+	return  currentScene;
+}
 
+void Engine::SetGameInterface(GameInterface* gameInterface_) {
+	gameInterface = gameInterface_;
+}
+
+void Engine::SetCurrentScene(int sceneNum_){
+	currentScene = sceneNum_;
+}
+
+void Engine::Update(const float deltaTime_) {
+	if (gameInterface) {
+		gameInterface-> Update(deltaTime_);
+		std::cout << deltaTime_ << std::endl;
+	}
 }
 
 void Engine::Render() {
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//Call Game Render HERE
+
+	if (gameInterface) {
+		gameInterface->Render();
+	}
+
 	SDL_GL_SwapWindow(window->GetWindow());
 }
 
 void Engine::OnDestroy() {
+	delete gameInterface;
+	gameInterface = nullptr;
+
 	delete window;
 	window = nullptr;
+
 	SDL_Quit();
 	exit(0);
 }
