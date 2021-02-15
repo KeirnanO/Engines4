@@ -9,6 +9,8 @@
 #include "Scene.h"
 #include "Debug.h"
 
+#include "../Rendering/3D/GameObject.h"
+
  class Engine
 {
 public:	

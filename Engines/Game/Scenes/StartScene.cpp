@@ -16,6 +16,7 @@ bool StartScene::OnCreate()
 
 void StartScene::Update(const float deltaTime_)
 {
+	Engine::GetInstance()->SetCurrentScene(1);
 }
 
 void StartScene::Render()

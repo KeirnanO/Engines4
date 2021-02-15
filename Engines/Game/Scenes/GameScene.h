@@ -1,4 +1,4 @@
-#ifndef GAMESCENE_HJ
+#ifndef GAMESCENE_H
 #define GAMESCENE_H
 
 #include "../../Engine/Core/Engine.h"
@@ -11,6 +11,9 @@ public:
 	bool OnCreate() override;
 	void Update(const float deltaTime_) override;
 	void Render() override;
+
+private:
+	GameObject* shape;
 };
 
 #endif // !GAMESCENE_HJ

@@ -76,7 +76,7 @@ void Engine::SetCurrentScene(int sceneNum_){
 void Engine::Update(const float deltaTime_) {
 	if (gameInterface) {
 		gameInterface-> Update(deltaTime_);
-		std::cout << deltaTime_ << std::endl;
+		//std::cout << deltaTime_ << std::endl;
 	}
 }
 
@@ -97,6 +97,9 @@ void Engine::OnDestroy() {
 
 	delete window;
 	window = nullptr;
+
+	delete timer;
+	timer = nullptr;
 
 	SDL_Quit();
 	exit(0);
