@@ -11,8 +11,9 @@
 
 #include "../Rendering/3D/GameObject.h"
 
- class Engine
-{
+#include "../Graphics/ShaderHandler.h"
+
+ class Engine{
 public:	
 	Engine(const Engine&) = delete;
 	Engine(const Engine&&) = delete;

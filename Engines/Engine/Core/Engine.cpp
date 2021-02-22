@@ -24,6 +24,8 @@ bool Engine::OnCreate(std::string name_, int width_, int height_) {
 		return isRunning = false;
 	}
 
+	ShaderHandler::GetInstance()->CreateProgram("colourShader", "Engine/Shaders/ColourVertexShader.glsl", "Engine/Shaders/ColourFragmentShader.glsl");
+
 	if (gameInterface) {
 		if (!gameInterface->OnCreate()) {
 			Debug::FatalError("Game failed to initialize", "Engine.cpp", __LINE__);
@@ -92,6 +94,9 @@ void Engine::Render() {
 }
 
 void Engine::OnDestroy() {
+
+	ShaderHandler::GetInstance()->OnDestroy();
+
 	delete gameInterface;
 	gameInterface = nullptr;
 

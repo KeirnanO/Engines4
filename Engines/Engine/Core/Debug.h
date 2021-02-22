@@ -1,12 +1,11 @@
 #ifndef DEBUG_H
-#define DEBUH_H
+#define DEBUG_H
 
 #include <iostream>
 #include <string>
 #include <fstream>
 
-class Debug
-{
+class Debug{
 public:
 	enum class MessageType : unsigned short {
 		TYPE_NONE,
