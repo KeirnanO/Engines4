@@ -13,6 +13,8 @@
 
 #include "../Graphics/ShaderHandler.h"
 
+#include "../Camera/Camera.h"
+
  class Engine{
 public:	
 	Engine(const Engine&) = delete;
@@ -28,9 +30,13 @@ public:
 	
 	bool GetIsRunning() const;
 	int GetCurrentScene() const;
+	float GetScreenWidth() const;
+	float GetScreenHeight() const;
+	Camera* GetCamera() const;
 
 	void SetGameInterface(GameInterface* gameInterface_);
 	void SetCurrentScene(int sceneNum_);
+	void SetCamera(Camera* camera);
 
 private:
 	Engine();
@@ -49,6 +55,8 @@ private:
 
 	GameInterface* gameInterface;
 	int currentScene; //Can be enum for more precise scene management
+
+	Camera* camera;
 };
 
 
