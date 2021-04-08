@@ -25,12 +25,12 @@ void Mesh::Render(Camera* camera_, std::vector<glm::mat4>& instances_){
 	glBindTexture(GL_TEXTURE_2D, subMesh.material.diffuseMap);
 	
 	///Lights Not Working
-	//glUniform1f(lightAmbientLoc, camera_->GetLightSources().front()->GetAmbient());
-	//glUniform1f(lightDiffuseLoc, camera_->GetLightSources().at(0)->GetDiffuse());
-	//glUniform3fv(lightColourLoc, 1, glm::value_ptr(camera_->GetLightSources().at(0)->GetColor()));
-	//glUniform3fv(lightPositionLoc, 1, glm::value_ptr(camera_->GetLightSources().at(0)->GetPosition()));
+	glUniform1f(lightAmbientLoc, camera_->GetLightSources().at(0)->GetAmbient());
+	glUniform1f(lightDiffuseLoc, camera_->GetLightSources().at(0)->GetDiffuse());
+	glUniform3fv(lightColourLoc, 1, glm::value_ptr(camera_->GetLightSources().at(0)->GetColor()));
+	glUniform3fv(lightPositionLoc, 1, glm::value_ptr(camera_->GetLightSources().at(0)->GetPosition()));
 
-	//glUniform3fv(viewPosition, 1, glm::value_ptr(camera_->GetPosition()));
+	glUniform3fv(viewPosition, 1, glm::value_ptr(camera_->GetPosition()));
 
 	//Material Locations
 	glUniform1f(shininessLoc, subMesh.material.shininess);
@@ -87,6 +87,7 @@ void Mesh::GenerateBuffers(){
 	lightAmbientLoc = glGetUniformLocation(shaderProgram, "light.ambient");
 	lightDiffuseLoc = glGetUniformLocation(shaderProgram, "light.diffuse");
 	lightColourLoc = glGetUniformLocation(shaderProgram, "light.lightColour");
+	lightSpecularLoc = glGetUniformLocation(shaderProgram, "light.specular");
 
 	//get material loc
 	diffuseMapLoc = glGetUniformLocation(shaderProgram, "material.diffuseMap");

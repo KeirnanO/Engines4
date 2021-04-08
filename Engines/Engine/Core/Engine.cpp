@@ -35,7 +35,6 @@ bool Engine::OnCreate(std::string name_, int width_, int height_) {
 		}
 	}
 
-
 	Debug::Info("Engine Created Successfully!", "Engine.cpp", __LINE__);
 	timer = new Timer();
 	timer->Start();

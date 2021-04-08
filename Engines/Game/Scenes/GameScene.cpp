@@ -13,7 +13,7 @@ bool GameScene::OnCreate()
 
 	Engine::GetInstance()->SetCamera(new Camera());
 	Engine::GetInstance()->GetCamera()->SetPosition(glm::vec3(0.0f, 0.0f, 4.0f));
-	//Engine::GetInstance()->GetCamera()->AddLightSource(new LightSource(glm::vec3(0.0f, 0.0f, 2.0f), 0.1f, 0.5f, 0.5f, glm::vec3(1.0f, 1.0f, 1.0f)));
+	Engine::GetInstance()->GetCamera()->AddLightSource(new LightSource(glm::vec3(0.0f, 0.0f, 2.0f), 0.1f, 0.5f, 0.5f, glm::vec3(1.0f, 1.0f, 1.0f)));
 
 	TextureHandler::GetInstance()->CreateTexture("CheckerboardTexture", "Resources/Textures/CheckerboardTexture.png");
 

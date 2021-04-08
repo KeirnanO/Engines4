@@ -17,7 +17,6 @@ void main() {
 	gl_Position = proj * view * model * vec4(position, 1.0f);
 	Normal = vec3(transpose(inverse(model)) * vec4(normal.x, normal.y, normal.z, 0.0));
 	FragPosition = vec3(model*vec4(position.x, position.y, position.z, 0.0));
-	TexCoords = texCoords;
+	TexCoords = vec2(texCoords.x, 1 - texCoords.y);
 	Colour = vec3(1.0f);
-
 }

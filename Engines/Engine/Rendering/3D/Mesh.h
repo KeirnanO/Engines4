@@ -35,7 +35,7 @@ private:
 	GLuint shaderProgram;
 
 	GLuint modelLoc, viewLoc, projLoc,
-		viewPosition, lightPositionLoc, lightAmbientLoc, lightDiffuseLoc, lightColourLoc,
+		viewPosition, lightPositionLoc, lightAmbientLoc, lightDiffuseLoc, lightColourLoc, lightSpecularLoc,
 		diffuseMapLoc, shininessLoc, transparencyLoc, ambientLoc, diffuseLoc, specularLoc;
 };
 

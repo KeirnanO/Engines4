@@ -14,8 +14,6 @@ nearPlane(0.0f), farPlane(0.0f), yaw(0.0f), pitch(0.0f), perspective(glm::mat4()
 	yaw = -90.0f;
 	pitch = 0.0f;
 
-	lights = std::vector<LightSource*>(1, NULL);
-
 	perspective = glm::perspective(fieldOfView,
 		Engine::GetInstance()->GetScreenWidth() /
 		Engine::GetInstance()->GetScreenHeight(),
@@ -69,9 +67,8 @@ void Camera::AddLightSource(LightSource* newLightSource) {
 	lights.push_back(newLightSource);
 }
 
-std::vector<LightSource*> Camera::GetLightSources() const
-{
-	return std::vector<LightSource*>();
+std::vector<LightSource*> Camera::GetLightSources() const {
+	return lights;
 }
 
 void Camera::UpdateCameraVectors(){

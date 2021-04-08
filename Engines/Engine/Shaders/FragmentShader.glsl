@@ -14,9 +14,15 @@ struct Light {
 	vec3 lightColour;
 };
 
+struct Material {
+	sampler2D diffuseMap; // newmtl
+	float shininess, transparency; // Ns, d
+	vec3 ambient, diffuse, specular; // Ka, Kd, Ks
+};
+    
 	uniform vec3 viewPosition;
 	uniform Light light;
-    uniform Material material
+    uniform Material material;
 
 void main() {
 

@@ -50,6 +50,7 @@ void SceneGraph::AddModel(Model* model_){
 	sceneModels[shader].push_back(model_);
 }
 
+//Quesiton**
 void SceneGraph::AddGameObject(GameObject* go_, std::string tag_){
 	if (tag_ == "") {
 		std::string newTag = "GameObject" + std::to_string(sceneGameObjects.size() + 1);

@@ -16,7 +16,7 @@ void MaterialLoader::LoadMaterial(std::string filePath_){
 	std::string line;
 	while (std::getline(in, line)) {
 
-		if (line.substr(0, 7) == "newmtl") {
+		if (line.substr(0, 7) == "newmtl ") {
 			if (m.diffuseMap != 0) {
 				MaterialHandler::GetInstance()->AddMaterial(m);
 				m = Material();
@@ -34,7 +34,7 @@ void MaterialLoader::LoadMaterial(std::string filePath_){
 		}
 		//TRANSPARENCY
 		else if (line.substr(0, 3) == ("\td "))	{
-			std::stringstream v(line.substr(4));
+			std::stringstream v(line.substr(3));
 			float x;
 			v >> x;
 			m.transparency = x;
