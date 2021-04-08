@@ -146,8 +146,13 @@
     <ClCompile Include="Engine\Core\Debug.cpp" />
     <ClCompile Include="Engine\Core\Engine.cpp" />
     <ClCompile Include="Engine\Rendering\3D\GameObject.cpp" />
+    <ClCompile Include="Engine\Rendering\SceneGraph.cpp">
+      <DeploymentContent>true</DeploymentContent>
+    </ClCompile>
     <ClCompile Include="Game\Scenes\GameScene.cpp" />
     <ClCompile Include="Game\Game1.cpp" />
+    <ClCompile Include="Engine\FX\LightSource.cpp" />
+    <ClCompile Include="Engine\Rendering\3D\LoadOBJModel.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Engine\Core\Window.cpp" />
     <ClCompile Include="Engine\Core\Timer.cpp" />
@@ -155,6 +160,9 @@
     <ClCompile Include="Engine\Rendering\3D\Mesh.cpp" />
     <ClCompile Include="Engine\Rendering\3D\Model.cpp" />
     <ClCompile Include="Engine\Graphics\ShaderHandler.cpp" />
+    <ClCompile Include="Engine\Graphics\TextureHandler.cpp" />
+    <ClCompile Include="Engine\Graphics\MaterialHandler.cpp" />
+    <ClCompile Include="Engine\FX\MaterialLoader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Camera\Camera.h" />
@@ -165,16 +173,27 @@
     <ClInclude Include="Engine\Core\Timer.h" />
     <ClInclude Include="Engine\Core\GameInterface.h" />
     <ClInclude Include="Engine\Rendering\3D\GameObject.h" />
+    <ClInclude Include="Engine\Rendering\SceneGraph.h" />
     <ClInclude Include="Game\Scenes\GameScene.h" />
     <ClInclude Include="Game\Game1.h" />
     <ClInclude Include="Game\Scenes\StartScene.h" />
     <ClInclude Include="Engine\Rendering\3D\Mesh.h" />
     <ClInclude Include="Engine\Rendering\3D\Model.h" />
     <ClInclude Include="Engine\Graphics\ShaderHandler.h" />
+    <ClInclude Include="Engine\Graphics\TextureHandler.h" />
+    <ClInclude Include="Engine\FX\LightSource.h" />
+    <ClInclude Include="Engine\Rendering\3D\LoadOBJModel.h" />
+    <ClInclude Include="Engine\Graphics\MaterialHandler.h" />
+    <ClInclude Include="Engine\FX\MaterialLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Shaders\ColourFragmentShader.glsl" />
     <None Include="Engine\Shaders\ColourVertexShader.glsl" />
+    <None Include="Engine\Shaders\FragmentShader.glsl" />
+    <None Include="Engine\Shaders\VertexShader.glsl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\Textures\CheckerboardTexture.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

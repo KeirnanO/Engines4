@@ -2,10 +2,9 @@
 
 in vec3 Normal;
 in vec2 TexCoords;
-in vec4 Colour;
 
-out vec4 fColour;
+out vec3 fColour;
 
 void main(){
-	fColour = vec4(Colour);
+	fColour = vec3(Colour);
 }

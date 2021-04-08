@@ -24,7 +24,8 @@ bool Engine::OnCreate(std::string name_, int width_, int height_) {
 		return isRunning = false;
 	}
 
-	ShaderHandler::GetInstance()->CreateProgram("colourShader", "Engine/Shaders/ColourVertexShader.glsl", "Engine/Shaders/ColourFragmentShader.glsl");
+	//ShaderHandler::GetInstance()->CreateProgram("colourShader", "Engine/Shaders/ColourVertexShader.glsl", "Engine/Shaders/ColourFragmentShader.glsl");
+	ShaderHandler::GetInstance()->CreateProgram("basicShader", "Engine/Shaders/VertexShader.glsl", "Engine/Shaders/FragmentShader.glsl");
 
 	if (gameInterface) {
 		if (!gameInterface->OnCreate()) {
@@ -111,6 +112,9 @@ void Engine::Render() {
 void Engine::OnDestroy() {
 
 	ShaderHandler::GetInstance()->OnDestroy();
+	TextureHandler::GetInstance()->OnDestroy();
+	MaterialHandler::GetInstance()->OnDestroy();
+	SceneGraph::GetInstance()->OnDestroy();
 
 	delete gameInterface;
 	gameInterface = nullptr;
@@ -118,11 +122,11 @@ void Engine::OnDestroy() {
 	delete camera;
 	camera = nullptr;
 
-	delete window;
-	window = nullptr;
-
 	delete timer;
 	timer = nullptr;
+
+	delete window;
+	window = nullptr;	
 
 	SDL_Quit();
 	exit(0);
