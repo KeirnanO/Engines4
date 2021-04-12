@@ -75,14 +75,14 @@ void LoadOBJModel::LoadModel(const std::string& filePath_){
 		}
 		//NORMAL DATA
 		else if (line.substr(0, 3) == "vn ") {
-			std::stringstream v(line.substr(2));
+			std::stringstream v(line.substr(3));
 			float x, y, z;
 			v >> x >> y >> z;
 			normals.push_back(glm::vec3(x, y, z));
 		}
 		//TEXTURE DATA
 		else if (line.substr(0, 3) == "vt ") {
-			std::stringstream v(line.substr(2));
+			std::stringstream v(line.substr(3));
 			float x, y;
 			v >> x >> y;
 			textureCoords.push_back(glm::vec2(x, y));
