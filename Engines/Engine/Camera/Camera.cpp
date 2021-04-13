@@ -71,6 +71,41 @@ std::vector<LightSource*> Camera::GetLightSources() const {
 	return lights;
 }
 
+void Camera::ProcessMouseMovement(glm::vec2 offset_){
+	//Temp Sensitivity
+	float mouseSensitivity = 0.05f;
+	offset_ *= mouseSensitivity;
+
+	yaw += offset_.x;
+	pitch += offset_.y;
+
+	//Clamp Vertical Movement
+	if (pitch > 89.0f) {
+		pitch = 89.0f;
+	}
+	if (pitch < -89.0f) {
+		pitch = -89.0f;
+	}
+
+	//We dont want negative numbers
+	if (yaw < 0.0f) {
+		yaw += 360.0f;
+	}
+	if (yaw > 360.0f) {
+		yaw -= 360.0f;
+	}
+	UpdateCameraVectors();
+}
+
+void Camera::ProcessMouseZoom(int y_){
+	if (y_ < 0 || y_ > 0) {
+		//Temp zooom speed
+		float zoomSpeed = 2.0f;
+		position += static_cast<float>(y_) * (forward * zoomSpeed);	
+	}
+	UpdateCameraVectors();
+}
+
 void Camera::UpdateCameraVectors(){
 	forward.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 	forward.y = sin(glm::radians(pitch));

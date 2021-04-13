@@ -33,6 +33,11 @@ std::vector<SubMesh> LoadOBJModel::GetSubMeshes(){
 	return subMeshes;
 }
 
+BoundingBox LoadOBJModel::GetBoundingBox() const
+{
+	return boundingBox;
+}
+
 void LoadOBJModel::PostProcessing(){
 	for (unsigned int i = 0; i < indices.size() ; i++) {
 		Vertex vert;
@@ -65,13 +70,33 @@ void LoadOBJModel::LoadModel(const std::string& filePath_){
 
 	std::string line;
 
-	while (std::getline(in, line)) {
+	glm::vec3 maxVertX, maxVertY, minVertX, minVertY;
+	maxVertX = maxVertY = minVertX = minVertY = glm::vec3();
+
+	while (std::getline(in, line)) {		
+
 		//VERTEX DATA
 		if (line.substr(0, 2) == "v ") {
 			std::stringstream v(line.substr(2));
 			float x, y, z;
 			v >> x >> y >> z;
 			vertices.push_back(glm::vec3(x, y, z));
+
+			glm::vec3 vertex = vertices.back();
+
+			//Get boundginBox verticies
+			if (vertex.x > maxVertX.x){
+				maxVertX = vertex;
+			}
+			if(vertex.x < minVertX.x){
+				minVertX = vertex;
+			}
+			if (vertex.y > maxVertY.y) {
+				maxVertY = vertex;
+			}
+			if (vertex.y < minVertY.y) {
+				minVertY = vertex;
+			}
 		}
 		//NORMAL DATA
 		else if (line.substr(0, 3) == "vn ") {

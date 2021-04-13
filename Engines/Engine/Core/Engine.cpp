@@ -3,7 +3,7 @@
 
 std::unique_ptr<Engine> Engine::engineInstance = nullptr;
 
-Engine::Engine() :window(nullptr), isRunning(false), fps(60), gameInterface(nullptr){}
+Engine::Engine() :window(nullptr), isRunning(false), fps(60), gameInterface(nullptr), camera(nullptr), timer(nullptr), currentScene(0){}
 
 Engine::~Engine() {
 }
@@ -23,6 +23,10 @@ bool Engine::OnCreate(std::string name_, int width_, int height_) {
 		OnDestroy();
 		return isRunning = false;
 	}
+
+	SDL_WarpMouseInWindow(window->GetWindow(), window->GetWidth() / 2, window->GetHeight() / 2);
+
+	MouseEventListener::RegisterEngineObject(this);
 
 	//ShaderHandler::GetInstance()->CreateProgram("colourShader", "Engine/Shaders/ColourVertexShader.glsl", "Engine/Shaders/ColourFragmentShader.glsl");
 	ShaderHandler::GetInstance()->CreateProgram("basicShader", "Engine/Shaders/VertexShader.glsl", "Engine/Shaders/FragmentShader.glsl");
@@ -44,6 +48,7 @@ bool Engine::OnCreate(std::string name_, int width_, int height_) {
 void Engine::Run() {
 	while (isRunning) {
 		timer->UpdateFrameTicks();
+		EventListener::Update();
 		Update(timer->GetDeltaTime());
 		Render();
 		SDL_Delay(timer->GetSleepTime(fps));
@@ -88,6 +93,25 @@ void Engine::SetCurrentScene(int sceneNum_){
 
 void Engine::SetCamera(Camera* camera_){
 	camera = camera_;
+}
+
+void Engine::NotifyOfMousePressed(glm::ivec2 mouse_, int buttonType_){
+}
+
+void Engine::NotifyOfMouseReleased(glm::ivec2 mouse_, int buttonType_){
+}
+
+//Why is mouse needed here
+void Engine::NotifyOfMouseMove(glm::ivec2 mouse_){
+	if (camera) {
+		camera->ProcessMouseMovement(MouseEventListener::GetMouseOffset());
+	}
+}
+
+void Engine::NotifyOfMouseScroll(int y_){
+	if (camera) {
+		camera->ProcessMouseZoom(y_);
+	}
 }
 
 void Engine::Update(const float deltaTime_) {

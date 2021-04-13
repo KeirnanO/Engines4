@@ -17,6 +17,7 @@ public:
 	void UpdateInstance(unsigned int index, glm::vec3 position_, float angle_, glm::vec3 rotation, glm::vec3 scale);
 	glm::mat4 GetTransform(unsigned int index) const;
 	GLuint GetShaderProgram() const;
+	BoundingBox GetBoundingBox();
 
 private:
 	glm::mat4 CreateTransform(glm::vec3 position_, float angle_, glm::vec3 rotation, glm::vec3 scale) const;
@@ -26,6 +27,8 @@ private:
 	GLuint shaderProgram;
 	std::vector<glm::mat4> modelInstances;
 	LoadOBJModel* obj;
+
+	BoundingBox boundingBox;
 };
 
 #endif // !MODEL_H
