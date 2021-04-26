@@ -1,7 +1,7 @@
 #include "Engine.h"
 
 
-std::unique_ptr<Engine> Engine::engineInstance = nullptr;
+std::unique_ptr<Engine> Engine::instance = nullptr;
 
 Engine::Engine() :window(nullptr), isRunning(false), fps(60), gameInterface(nullptr), camera(nullptr), timer(nullptr), currentScene(0){}
 
@@ -9,10 +9,10 @@ Engine::~Engine() {
 }
 
 Engine* Engine::GetInstance() {
-	if (engineInstance.get() == nullptr) {
-		engineInstance.reset(new Engine);
+	if (instance.get() == nullptr) {
+		instance.reset(new Engine);
 	}
-	return engineInstance.get();
+	return instance.get();
 }
 
 bool Engine::OnCreate(std::string name_, int width_, int height_) {

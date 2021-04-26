@@ -10,66 +10,66 @@ MouseEventListener::~MouseEventListener() {
 	engineInstance = nullptr;
 }
 
-void MouseEventListener::RegisterEngineObject(Engine* engine_){
+void MouseEventListener::RegisterEngineObject(Engine* engine_) {
 	engineInstance = engine_;
 }
 
-void MouseEventListener::Update(SDL_Event e_){
+void MouseEventListener::Update(SDL_Event e_) {
 	switch (e_.type) {
-		case SDL_MOUSEBUTTONDOWN:
-			UpdateMousePosition();
-			NotifyOfMousePressed(e_.button.button);
-			break;
-		case SDL_MOUSEBUTTONUP:
-			UpdateMousePosition();
-			NotifyOfMouseReleased(e_.button.button);
-			break;
-		case SDL_MOUSEMOTION:
-			UpdateMousePosition();
-			NotifyOfMouseMove();
-			break;
-		case SDL_MOUSEWHEEL:
-			UpdateMousePosition();
-			NotifyOfMouseScroll(e_.wheel.y);
-			break;
-		default:
-			break;
+	case SDL_MOUSEBUTTONDOWN:
+		UpdateMousePosition();
+		NotifyOfMousePressed(e_.button.button);
+		break;
+	case SDL_MOUSEBUTTONUP:
+		UpdateMousePosition();
+		NotifyOfMouseReleased(e_.button.button);
+		break;
+	case SDL_MOUSEMOTION:
+		UpdateMousePosition();
+		NotifyOfMouseMove();
+		break;
+	case SDL_MOUSEWHEEL:
+		UpdateMousePosition();
+		NotifyOfMouseScroll(e_.wheel.y);
+		break;
+	default:
+		break;
 	}
 }
 
-void MouseEventListener::NotifyOfMousePressed(int buttonType_){
+void MouseEventListener::NotifyOfMousePressed(int buttonType_) {
 	if (engineInstance)
 		engineInstance->NotifyOfMousePressed(mouse, buttonType_);
 }
 
-void MouseEventListener::NotifyOfMouseReleased(int buttonType_){
+void MouseEventListener::NotifyOfMouseReleased(int buttonType_) {
 	if (engineInstance)
 		engineInstance->NotifyOfMouseReleased(mouse, buttonType_);
 }
 
-void MouseEventListener::NotifyOfMouseMove(){
+void MouseEventListener::NotifyOfMouseMove() {
 	if (engineInstance)
 		engineInstance->NotifyOfMouseMove(mouse);
 }
 
-void MouseEventListener::NotifyOfMouseScroll(int y_){
+void MouseEventListener::NotifyOfMouseScroll(int y_) {
 	if (engineInstance)
 		engineInstance->NotifyOfMouseScroll(y_);
 }
 
-glm::ivec2 MouseEventListener::GetPreviousMousePosition(){
+glm::ivec2 MouseEventListener::GetPreviousMousePosition() {
 	return prevMouse;
 }
 
-glm::ivec2 MouseEventListener::GetMousePosition(){
+glm::ivec2 MouseEventListener::GetMousePosition() {
 	return mouse;
 }
 
-glm::ivec2 MouseEventListener::GetMouseOffset(){
+glm::ivec2 MouseEventListener::GetMouseOffset() {
 	return glm::ivec2(mouse.x - prevMouse.x, prevMouse.y - mouse.y);
 }
 
-void MouseEventListener::UpdateMousePosition(){
+void MouseEventListener::UpdateMousePosition() {
 	int tempX, tempY;
 	SDL_GetMouseState(&tempX, &tempY);
 	tempY = static_cast<int>(engineInstance->GetScreenHeight()) - tempY;

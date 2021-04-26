@@ -55,7 +55,7 @@ private:
 	void Render();
 	void OnDestroy();
 
-	static std::unique_ptr<Engine> engineInstance;
+	static std::unique_ptr<Engine> instance;
 	friend std::default_delete<Engine>;
 
 	Window* window;
