@@ -13,9 +13,11 @@ bool GameScene::OnCreate()
 
 	Engine::GetInstance()->SetCamera(new Camera());
 	Engine::GetInstance()->GetCamera()->SetPosition(glm::vec3(0.0f, 0.0f, 4.0f));
-	Engine::GetInstance()->GetCamera()->AddLightSource(new LightSource(glm::vec3(0.0f, 0.0f, 2.0f), 0.1f, 0.5f, 0.5f, glm::vec3(1.0f, 1.0f, 1.0f)));
+	Engine::GetInstance()->GetCamera()->AddLightSource(new LightSource(glm::vec3(0.0f, 0.0f, 2.0f), 0.5f, 0.1f, 0.1f, glm::vec3(1.0f, 1.0f, 1.0f)));
 
-	TextureHandler::GetInstance()->CreateTexture("CheckerboardTexture", "Resources/Textures/CheckerboardTexture.png");
+	CollisionHandler::GetInstance()->OnCreate();
+
+	//TextureHandler::GetInstance()->CreateTexture("CheckerboardTexture", "Resources/Textures/CheckerboardTexture.png");
 
 	Model* diceModel = new Model("Resources/Models/Dice.obj", "Resources/Materials/Dice.mtl", ShaderHandler::GetInstance()->GetShader("basicShader"));
 	Model* appleModel = new Model("Resources/Models/Apple.obj", "Resources/Materials/Apple.mtl", ShaderHandler::GetInstance()->GetShader("basicShader"));

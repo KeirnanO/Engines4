@@ -53,6 +53,10 @@ BoundingBox GameObject::GetBoundingBox() const
 	return boundingBox;
 }
 
+bool GameObject::GetHit() const {
+	return hit;
+}
+
 void GameObject::SetPosition(glm::vec3 position_) {
 	position = position_;
 
@@ -93,4 +97,11 @@ void GameObject::SetAngle(float angle_) {
 
 void GameObject::SetTag(std::string tag_){
 	tag = tag_;
+}
+
+void GameObject::SetHit(bool hit_, int buttonType_) {
+	hit = hit_;
+	if (hit) {
+		std::cout << tag << " was hit" << std::endl;
+	}
 }

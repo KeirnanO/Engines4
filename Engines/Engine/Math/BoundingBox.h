@@ -3,6 +3,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtx/string_cast.hpp>
+#include "CollisionDetection.h"
 
 struct BoundingBox {
 	glm::vec3 maxVert, minVert;

@@ -45,7 +45,6 @@ void SceneGraph::AddModel(Model* model_){
 	GLuint shader = model_->GetShaderProgram();
 	if (sceneModels.find(shader) == sceneModels.end()) {
 		sceneModels.insert(std::pair<GLuint, std::vector<Model*>>(shader, std::vector<Model*>()));
-		sceneModels[shader].push_back(model_);
 	}
 	sceneModels[shader].push_back(model_);
 }
@@ -67,6 +66,10 @@ void SceneGraph::AddGameObject(GameObject* go_, std::string tag_){
 		go_->SetTag(newTag);
 		sceneGameObjects[newTag] = go_;
 	}
+	//Add bool for collidable;
+	//Possible bool for is raycastable
+	CollisionHandler::GetInstance()->AddObject(go_);
+
 }
 
 GameObject* SceneGraph::GetGameObject(std::string tag_){

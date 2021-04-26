@@ -1,2 +1,2 @@
-[INFO]: Engine Created Successfully! // in: Engine.cpp on line: 38
+[INFO]: Engine Created Successfully! // in: Engine.cpp on line: 42
 [INFO]: Creating GameScene // in: GameScene.cpp on line: 12

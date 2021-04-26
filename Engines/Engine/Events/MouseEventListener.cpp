@@ -1,5 +1,5 @@
 #include "MouseEventListener.h"
-#include "../Core/Engine.cpp"
+#include "../Core/Engine.h"
 
 Engine* MouseEventListener::engineInstance = nullptr;
 glm::ivec2 MouseEventListener::mouse = glm::ivec2();
@@ -80,7 +80,7 @@ void MouseEventListener::UpdateMousePosition() {
 		firstUpdate = false;
 	}
 	else {
-		prevMouse.y = mouse.x;
+		prevMouse.x = mouse.x;
 		prevMouse.y = mouse.y;
 		mouse.x = tempX;
 		mouse.y = tempY;

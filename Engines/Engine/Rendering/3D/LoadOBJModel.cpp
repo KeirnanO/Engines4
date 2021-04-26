@@ -70,8 +70,9 @@ void LoadOBJModel::LoadModel(const std::string& filePath_){
 
 	std::string line;
 
-	glm::vec3 maxVertX, maxVertY, minVertX, minVertY;
-	maxVertX = maxVertY = minVertX = minVertY = glm::vec3();
+	glm::vec3 maxVert, minVert;
+	maxVert = glm::vec3(-INFINITY, -INFINITY, -INFINITY);
+	minVert = glm::vec3(INFINITY, INFINITY, INFINITY);
 
 	while (std::getline(in, line)) {		
 
@@ -85,17 +86,23 @@ void LoadOBJModel::LoadModel(const std::string& filePath_){
 			glm::vec3 vertex = vertices.back();
 
 			//Get boundginBox verticies
-			if (vertex.x > maxVertX.x){
-				maxVertX = vertex;
+			if (vertex.x > maxVert.x){
+				maxVert.x = vertex.x;
 			}
-			if(vertex.x < minVertX.x){
-				minVertX = vertex;
+			if(vertex.x < minVert.x){
+				minVert.x = vertex.x;
 			}
-			if (vertex.y > maxVertY.y) {
-				maxVertY = vertex;
+			if (vertex.y > maxVert.y) {
+				maxVert.y = vertex.y;
 			}
-			if (vertex.y < minVertY.y) {
-				minVertY = vertex;
+			if (vertex.y < minVert.y) {
+				minVert.y = vertex.y;
+			}
+			if (vertex.z > maxVert.z) {
+				maxVert.z = vertex.z;
+			}
+			if (vertex.z < minVert.z) {
+				minVert.z = vertex.z;
 			}
 		}
 		//NORMAL DATA
@@ -143,6 +150,10 @@ void LoadOBJModel::LoadModel(const std::string& filePath_){
 		}
 		
 	}
+	
+	boundingBox.minVert = minVert;
+	boundingBox.maxVert = maxVert;
+
 	PostProcessing();
 }
 

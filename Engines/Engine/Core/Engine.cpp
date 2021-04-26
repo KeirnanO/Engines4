@@ -99,9 +99,10 @@ void Engine::NotifyOfMousePressed(glm::ivec2 mouse_, int buttonType_){
 }
 
 void Engine::NotifyOfMouseReleased(glm::ivec2 mouse_, int buttonType_){
+	CollisionHandler::GetInstance()->MouseUpdate(mouse_, buttonType_);
 }
 
-//Why is mouse needed here
+//Why is mouse_ needed here
 void Engine::NotifyOfMouseMove(glm::ivec2 mouse_){
 	if (camera) {
 		camera->ProcessMouseMovement(MouseEventListener::GetMouseOffset());
@@ -137,6 +138,7 @@ void Engine::OnDestroy() {
 	ShaderHandler::GetInstance()->OnDestroy();
 	TextureHandler::GetInstance()->OnDestroy();
 	MaterialHandler::GetInstance()->OnDestroy();
+	CollisionHandler::GetInstance()->OnDestroy();
 	SceneGraph::GetInstance()->OnDestroy();
 
 	delete gameInterface;

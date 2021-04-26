@@ -63,6 +63,14 @@ glm::vec3 Camera::GetPosition() const {
 	return position;
 }
 
+float Camera::GetNearPlane() const {
+	return nearPlane;
+}
+
+float Camera::GetFarPlane() const {
+	return farPlane;
+}
+
 void Camera::AddLightSource(LightSource* newLightSource) {
 	lights.push_back(newLightSource);
 }
@@ -77,7 +85,7 @@ void Camera::ProcessMouseMovement(glm::vec2 offset_){
 	offset_ *= mouseSensitivity;
 
 	yaw += offset_.x;
-	pitch += offset_.y;
+	pitch -= offset_.y;
 
 	//Clamp Vertical Movement
 	if (pitch > 89.0f) {
