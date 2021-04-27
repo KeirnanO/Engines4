@@ -2,12 +2,11 @@
 #include "../Core/Engine.h"
 
 std::unique_ptr<CollisionHandler> CollisionHandler::collisionInstance = nullptr;
-std::vector<GameObject*> CollisionHandler::colliders = std::vector<GameObject*>();
 std::vector<GameObject*> CollisionHandler::prevCollisions = std::vector<GameObject*>();
+OctSpatialPartition* CollisionHandler::scenePartition = nullptr;
 
 //Can i set this in the future to lets say GetAllObjects() in scene
 CollisionHandler::CollisionHandler() {
-    colliders.reserve(2);
     prevCollisions.reserve(2);
 }
 
@@ -23,13 +22,13 @@ CollisionHandler* CollisionHandler::GetInstance() {
     return collisionInstance.get();
 }
 
-void CollisionHandler::OnCreate() {
-    colliders.clear();
+void CollisionHandler::OnCreate(float worldSize_) {
     prevCollisions.clear();
+    scenePartition = new OctSpatialPartition(worldSize_);
 }
 
 void CollisionHandler::AddObject(GameObject* go_) {
-    colliders.push_back(go_);
+    scenePartition->AddObject(go_);
 }
 
 void CollisionHandler::MouseUpdate(glm::vec2 mousePosition_, int buttonType_) {
@@ -38,36 +37,29 @@ void CollisionHandler::MouseUpdate(glm::vec2 mousePosition_, int buttonType_) {
     GameObject* hitResult = nullptr;
     float shortestDistance = INFINITY;
 
-    for (auto g : colliders) {
-        if (mouseRay.IsColliding(&g->GetBoundingBox())) {
-            if (mouseRay.intersectionDistance < shortestDistance) {
-                hitResult = g;
-                shortestDistance = mouseRay.intersectionDistance;
+    if (scenePartition != nullptr) {
+        GameObject* hitResult = scenePartition->GetCollision(mouseRay);
+
+        if (hitResult) {
+            hitResult->SetHit(true, buttonType_);
+        }
+
+        for (auto c : prevCollisions) {
+            if (hitResult != c && c != nullptr) {
+                c->SetHit(false, buttonType_);
             }
         }
-    }
+        prevCollisions.clear();
 
-    if (hitResult) {
-        hitResult->SetHit(true, buttonType_);
-    }
-
-    for (auto c : prevCollisions) {
-        if (hitResult != c && c != nullptr) {
-            c->SetHit(false, buttonType_);
+        if (hitResult) {
+            prevCollisions.push_back(hitResult);
         }
-    }
-
-    prevCollisions.clear();
-    if (hitResult) {
-        prevCollisions.push_back(hitResult);
     }
 }
 
 void CollisionHandler::OnDestroy() {
-    for (auto entry : colliders) {
-        entry = nullptr;
-    }
-    colliders.clear();
+    delete scenePartition;
+    scenePartition = nullptr;
 
     for (auto entry : prevCollisions) {
         entry = nullptr;
