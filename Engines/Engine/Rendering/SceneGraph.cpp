@@ -86,11 +86,8 @@ void SceneGraph::Update(const float deltaTime_){
 }
 
 void SceneGraph::Render(Camera* camera_){
-	for (auto entry : sceneModels) {
-		glUseProgram(entry.first);
-		for (auto m : entry.second) {
-			m->Render(camera_);
-		}
+	for (auto go : sceneGameObjects) {
+		go.second->Render(camera_);
 	}
 }
 

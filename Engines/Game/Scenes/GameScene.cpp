@@ -12,7 +12,7 @@ bool GameScene::OnCreate()
 	Debug::Info("Creating GameScene", "GameScene.cpp", __LINE__);
 
 	Engine::GetInstance()->SetCamera(new Camera());
-	Engine::GetInstance()->GetCamera()->SetPosition(glm::vec3(0.0f, 0.0f, 4.0f));
+	Engine::GetInstance()->GetCamera()->SetPosition(glm::vec3(0.0f, 0.0f, 0.0f));
 	Engine::GetInstance()->GetCamera()->AddLightSource(new LightSource(glm::vec3(0.0f, 0.0f, 2.0f), 0.5f, 0.1f, 0.1f, glm::vec3(1.0f, 1.0f, 1.0f)));
 
 	CollisionHandler::GetInstance()->OnCreate();
@@ -24,8 +24,8 @@ bool GameScene::OnCreate()
 	SceneGraph::GetInstance()->AddModel(diceModel);
 	SceneGraph::GetInstance()->AddModel(appleModel);
 
-	SceneGraph::GetInstance()->AddGameObject(new GameObject(diceModel, glm::vec3(-2.0f, 0.0f, -2.0f)));
-	SceneGraph::GetInstance()->AddGameObject(new GameObject(appleModel, glm::vec3(1.5f, 0.0f, 0.0f)), "Apple");
+	SceneGraph::GetInstance()->AddGameObject(new GameObject(diceModel, glm::vec3(-2.0f, 0.0f, -6.0f)));
+	SceneGraph::GetInstance()->AddGameObject(new GameObject(appleModel, glm::vec3(1.5f, 0.0f, -4.0f)), "Apple");
 	
 	diceModel = nullptr;
 	appleModel = nullptr;

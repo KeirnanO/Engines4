@@ -22,6 +22,14 @@ void GameObject::Update(const float deltaTime_){
 }
 
 void GameObject::Render(Camera* camera_) {
+
+	if (!(camera_->frustum.BoxIntersection(glm::vec4(position, 1.0f))))
+	{
+		std::cout << tag << " is not inside the frustum" << std::endl;
+		return;
+	}
+
+
 	if (model) {
 		model->Render(camera_);
 	}

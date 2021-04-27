@@ -23,6 +23,8 @@ nearPlane(0.0f), farPlane(0.0f), yaw(0.0f), pitch(0.0f), perspective(glm::mat4()
 		0.0f, Engine::GetInstance()->GetScreenHeight(),
 		-1.0f, 1.0f);
 
+	frustum = Frustum();
+
 	UpdateCameraVectors();
 }
 
@@ -81,7 +83,7 @@ std::vector<LightSource*> Camera::GetLightSources() const {
 
 void Camera::ProcessMouseMovement(glm::vec2 offset_){
 	//Temp Sensitivity
-	float mouseSensitivity = 0.05f;
+	float mouseSensitivity = 0.5f;
 	offset_ *= mouseSensitivity;
 
 	yaw += offset_.x;
@@ -124,4 +126,6 @@ void Camera::UpdateCameraVectors(){
 	up = glm::normalize(glm::cross(right, forward));
 
 	view = glm::lookAt(position, position + forward, up);
+
+	frustum.matrix = glm::inverse(perspective * view);
 }

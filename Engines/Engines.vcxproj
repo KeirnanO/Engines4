@@ -152,6 +152,7 @@
       <DeploymentContent>true</DeploymentContent>
     </ClCompile>
     <ClCompile Include="Engine\Events\EventListener.cpp" />
+    <ClCompile Include="Engine\Math\Frustum.cpp" />
     <ClCompile Include="Game\Scenes\GameScene.cpp" />
     <ClCompile Include="Game\Game1.cpp" />
     <ClCompile Include="Engine\FX\LightSource.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="Engine\Rendering\3D\GameObject.h" />
     <ClInclude Include="Engine\Rendering\SceneGraph.h" />
     <ClInclude Include="Engine\Events\EventListener.h" />
+    <ClInclude Include="Engine\Math\Frustum.h" />
     <ClInclude Include="Game\Scenes\GameScene.h" />
     <ClInclude Include="Game\Game1.h" />
     <ClInclude Include="Game\Scenes\StartScene.h" />

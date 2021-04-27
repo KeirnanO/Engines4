@@ -4,6 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "../FX/LightSource.h"
+#include "../Math/Frustum.h"
 #include <vector>
 
 class Camera
@@ -27,6 +28,8 @@ public:
 
 	void ProcessMouseMovement(glm::vec2 offset_);
 	void ProcessMouseZoom(int y_);
+	
+	Frustum frustum;
 
 private:
 	void UpdateCameraVectors();
@@ -37,7 +40,7 @@ private:
 	float nearPlane, farPlane;
 	glm::vec3 forward, up, right, worldUp;
 
-	std::vector<LightSource*> lights;
+	std::vector<LightSource*> lights;	
 };
 
 #endif // !CAMERA_H
