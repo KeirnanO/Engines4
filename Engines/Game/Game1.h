@@ -10,9 +10,10 @@ public:
 	Game1();
 	virtual ~Game1();
 
-	bool OnCreate() override;
-	void Update(const float deltaTime_) override;
-	void Render() override;
+	virtual bool OnCreate() override;
+	virtual void Update(const float deltaTime_) override;
+	virtual void Render() override;
+	virtual void DrawSurface() override;
 
 private:
 	int currentSceneNum;

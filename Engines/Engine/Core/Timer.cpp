@@ -6,15 +6,21 @@ Timer::~Timer() {}
 
 void Timer::Start() {
 	prevTicks = currentTicks = SDL_GetTicks();
+
+	prevTime = currentTime = startTime = std::chrono::high_resolution_clock::now();
 }
 
 void Timer::UpdateFrameTicks() {
 	prevTicks = currentTicks;
 	currentTicks = SDL_GetTicks();
+
+	prevTime = currentTime;
+
+	currentTime = std::chrono::high_resolution_clock::now();
 }
 
 float Timer::GetDeltaTime() const{
-	return (currentTicks - prevTicks) / MILLI_TO_SEC;
+	return (currentTicks - prevTicks) / MILLI_TO_SEC * timeScale;
 }
 
 unsigned int Timer::GetSleepTime(const unsigned int fps) const {

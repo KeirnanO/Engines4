@@ -10,7 +10,7 @@ nearPlane(0.0f), farPlane(0.0f), yaw(0.0f), pitch(0.0f), perspective(glm::mat4()
 	up = glm::vec3(0.0f, 1.0f, 0.0f);
 	worldUp = up;
 	nearPlane = 2.0f;
-	farPlane = 50.0f;
+	farPlane = 200.0f;
 	yaw = -90.0f;
 	pitch = 0.0f;
 
@@ -44,7 +44,7 @@ void Camera::SetPosition(glm::vec3 position_){
 }
 
 void Camera::SetRotation(float yaw_, float pitch_){
-	yaw = yaw_;
+	yaw = yaw_ - 90.0f;
 	pitch = pitch_;
 	UpdateCameraVectors();
 }
@@ -107,6 +107,33 @@ void Camera::ProcessMouseMovement(glm::vec2 offset_){
 	UpdateCameraVectors();
 }
 
+void Camera::ProcessRotMovement(glm::vec2 offset_) {
+	//Temp Sensitivity
+	float mouseSensitivity = 0.5f;
+	//offset_ *= mouseSensitivity;
+
+	yaw += offset_.x;
+	pitch += offset_.y;
+
+	//Clamp Vertical Movement
+	if (pitch > 89.0f) {
+		pitch = 89.0f;
+	}
+	if (pitch < -89.0f) {
+		pitch = -89.0f;
+	}
+
+	//We dont want negative numbers
+	if (yaw < 0.0f) {
+		yaw += 360.0f;
+	}
+	if (yaw > 360.0f) {
+		yaw -= 360.0f;
+	}
+
+	UpdateCameraVectors();
+}
+
 void Camera::ProcessMouseZoom(int y_){
 	if (y_ < 0 || y_ > 0) {
 		//Temp zooom speed
@@ -114,6 +141,16 @@ void Camera::ProcessMouseZoom(int y_){
 		position += static_cast<float>(y_) * (forward * zoomSpeed);	
 	}
 	UpdateCameraVectors();
+}
+
+glm::vec3 Camera::GetForward()
+{
+	return forward;
+}
+
+glm::vec3 Camera::GetUp()
+{
+	return up;
 }
 
 void Camera::UpdateCameraVectors(){
@@ -127,5 +164,5 @@ void Camera::UpdateCameraVectors(){
 
 	view = glm::lookAt(position, position + forward, up);
 
-	frustum.matrix = glm::inverse(perspective * view);
+	frustum.matrix = glm::transpose(perspective * view);
 }

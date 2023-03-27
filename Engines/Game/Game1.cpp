@@ -10,7 +10,7 @@ Game1::~Game1() {
 
 bool Game1::OnCreate(){
     if (Engine::GetInstance()->GetCurrentScene() == 0) {
-        currentScene = new StartScene();
+        currentScene = new GameScene();
         currentSceneNum = 0;
         return currentScene->OnCreate();
     }
@@ -30,6 +30,10 @@ void Game1::Render(){
     currentScene->Render();
 }
 
+void Game1::DrawSurface() {
+    currentScene->Draw();
+}
+
 void Game1::BuildScene(){
     delete currentScene;
     currentScene = nullptr;
@@ -40,7 +44,7 @@ void Game1::BuildScene(){
         currentScene = new GameScene();
         break;
     default: //case 0
-        currentScene = new StartScene();
+        currentScene = new GameScene();
         break;
     }
 

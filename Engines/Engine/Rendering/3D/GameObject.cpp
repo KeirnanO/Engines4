@@ -1,5 +1,6 @@
 #include "GameObject.h"
 
+
 GameObject::GameObject(Model* model_, glm::vec3 position_) : model(nullptr), position(glm::vec3()), angle(0.0f), rotation(glm::vec3(0.0f, 1.0f, 0.0f)), scale(glm::vec3(1.0f)), modelInstance(0){
 	model = model_;
 	position = position_;
@@ -18,14 +19,23 @@ GameObject::~GameObject() {
 }
 
 void GameObject::Update(const float deltaTime_){
-	SetAngle(angle + 0.005f);
+
+	//Update All Components in the GameObject
+	for(auto Component: components)
+	{
+		//Component->Update(deltaTime_);
+	}
+
+	//SetPosition(transform->position);
+	//SetRotation(transform->rotation);
 }
 
 void GameObject::Render(Camera* camera_) {
 
+	//Disables Rendering if the object is outside the viewing frustum
 	if (!(camera_->frustum.BoxIntersection(glm::vec4(position, 1.0f))))
 	{
-		std::cout << tag << " is not inside the frustum" << std::endl;
+		//std::cout << tag << " is not inside the frustum" << std::endl;
 		return;
 	}
 

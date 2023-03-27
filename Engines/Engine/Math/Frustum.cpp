@@ -1,4 +1,5 @@
 #include "Frustum.h"
+#include "BoundingBox.h"
 
 Frustum::Frustum() : matrix(glm::mat4()) {
 	matrix = glm::mat4();
@@ -7,6 +8,9 @@ Frustum::Frustum() : matrix(glm::mat4()) {
 Frustum::~Frustum(){
 }
 
+//TODO:
+// Allow intersection to include the scale of an object
+//We only take in the position here, an object's scale will have no effect on the intersection
 bool Frustum::BoxIntersection(glm::vec4 position)
 {
 	//If any of these identities are false, then the object is outside the frustum
@@ -43,3 +47,4 @@ bool Frustum::BoxIntersection(glm::vec4 position)
 
 	return true;
 }
+

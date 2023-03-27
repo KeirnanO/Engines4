@@ -1,0 +1,24 @@
+<?xml version = "1.0"?>
+<group>
+	<gametitle>Poly Defense</gametitle>
+	<engine>Unity Engine</engine>
+	<people>
+		<person>
+			<title>Manager, Networking, AI</title>
+			<given>Keirnan</given>
+			<family>Oliver</family>
+		</person>
+		<person>
+			<title>Level Design, Player Mechanics</title>
+			<given>Kyle</given>
+			<family>Illana</family>
+		</person>
+		<person>
+			<title>Audio, Graphics</title>
+			<given>Chase</given>
+			<family>Johnson</family>
+		</person>
+	</people>
+	<description>3rd person rpg tower defense game</description>	
+</group>
+

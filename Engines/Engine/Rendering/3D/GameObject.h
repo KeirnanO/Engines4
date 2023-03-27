@@ -2,7 +2,9 @@
 #define GAMEOBJECT_H
 
 #include "Model.h"
+#include "../../Components/Component.h"
 
+class Component;
 class GameObject
 {
 public:
@@ -11,6 +13,52 @@ public:
 
 	void Update(const float deltaTime_);
 	void Render(Camera* camera_);
+
+
+	//Adding Components To a GameObject
+	template<typename ComponentTemplate, typename ... Args>
+	ComponentTemplate* AddComponent(Args&& ... args_) {
+		ComponentTemplate* comp = new ComponentTemplate(std::forward<Args>(args_)...);
+		if (!dynamic_cast<Component*>(comp)) {
+			///Trying to add a component that is not a base class of Component class
+			delete comp;
+			comp = nullptr;
+			return nullptr;
+		}
+		if (GetComponent<ComponentTemplate>()) {
+			///Trying to add a component type that is already added
+			delete comp;
+			comp = nullptr;
+			return nullptr;
+		}
+		components.push_back(comp);
+		comp->OnCreate(this);
+		return dynamic_cast<ComponentTemplate*>(comp);
+	}
+
+	template<typename ComponentTemplate>
+	ComponentTemplate* GetComponent() {
+		for (auto component : components) {
+			if (dynamic_cast<ComponentTemplate*>(component)) {
+				return dynamic_cast<ComponentTemplate*>(component);
+			}
+		}
+		return nullptr;
+	}
+
+	template<typename ComponentTemplate>
+	void RemoveComponent() {
+		for (int i = 0; i < components.size(); i++) {
+			if (dynamic_cast<ComponentTemplate*>(components[i])) {
+				delete components[i];
+				components[i] = nullptr;
+				components.erase(components.begin() + i);
+				break;
+			}
+		}
+	}
+
+
 
 	glm::vec3 GetPosition() const;
 	glm::vec3 GetRotation() const;
@@ -24,8 +72,8 @@ public:
 	void SetRotation(glm::vec3 rotation_);
 	void SetScale(glm::vec3 scale_);
 	void SetAngle(float angle_);
-	void SetTag(std::string tag_); //<<<<<<<<<<<<<<<--------------------------------------------------------------
-	void SetHit(bool hit_, int buttonType_); // something i would do - but seems like the object shouldnt handle this
+	void SetTag(std::string tag_);
+	void SetHit(bool hit_, int buttonType_);
 
 private:
 	Model* model;
@@ -38,6 +86,7 @@ private:
 	std::string tag;
 
 	BoundingBox boundingBox;
+	std::vector<Component*> components;
 
 	bool hit;
 };

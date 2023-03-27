@@ -7,6 +7,9 @@
 #include <string>
 #include <iostream>
 
+#include "ImguiWindow.h"
+
+
 class Window
 {
 public:
@@ -17,6 +20,14 @@ public:
 	int GetWidth() const;
 	int GetHeight() const;
 	SDL_Window* GetWindow() const;
+	SDL_GLContext GetContext() const;
+	void BeginRenderer();
+	void EndRenderer();
+	void PumpEvents();
+
+	SDL_Window* window;
+	SDL_GLContext context;
+	ImguiWindow imguiWindow;
 
 private:
 	void SetPreAttributes();
@@ -24,8 +35,7 @@ private:
 
 	int width;
 	int height;
-	SDL_Window* window;
-	SDL_GLContext context;
+	
 
 };
 

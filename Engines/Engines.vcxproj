@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -29,26 +29,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -72,16 +72,21 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\GameDev\SDL\include;C:\GameDev\OpenGL\include;$(IncludePath)</IncludePath>
+    <IncludePath>\GameDev\SDL2-devel-2.24.2-VC\SDL2-2.24.2\include;\GameDev\OpenGL\include;\GameDev\Audio\include;\GameDev\glfw-3.3.8.bin.WIN32\glfw-3.3.8.bin.WIN32\include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>\GameDev\SDL2-devel-2.24.2-VC\SDL2-2.24.2\include;\GameDev\OpenGL\include;\GameDev\Audio\include;\GameDev\glfw-3.3.8.bin.WIN32\glfw-3.3.8.bin.WIN32\include</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>D:\GameDev\SDL\include;D:\GameDev\OpenGL\include;D:\GameDev\Audio\include;D:\GameDev\glfw-3.3.2.bin.WIN32\include</IncludePath>
+    <LibraryPath>D:\GameDev\SDL\lib;D:\GameDev\OpenGL\lib;D:\GameDev\Audio\lib;D:\GameDev\glfw-3.3.2.bin.WIN32\lib-vc2019;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>D:\GameDev\SDL\include;D:\GameDev\OpenGL\include;D:\GameDev\Audio\include;D:\GameDev\glfw-3.3.2.bin.WIN32\include</IncludePath>
+    <LibraryPath>D:\GameDev\SDL\lib;D:\GameDev\OpenGL\lib;D:\GameDev\Audio\lib;D:\GameDev\glfw-3.3.2.bin.WIN32\lib-vc2019;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -89,28 +94,33 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>\GameDev\imgui-1.89.1;\GameDev\imgui-1.89.1\backends</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\GameDev\SDL\lib;C:\GameDev\OpenGL\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>SDL2.lib;SDL2_image.lib;SDL2main.lib;SDL2test.lib;glew32.lib;glew32s.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>\GameDev\SDL2-devel-2.24.2-VC\SDL2-2.24.2\lib\x86;\GameDev\Audio\lib;\GameDev\OpenGL\lib;\GameDev\glfw-3.3.8.bin.WIN32\glfw-3.3.8.bin.WIN32\lib-vc2022</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;opengl32.lib;glew32.lib;glfw3.lib;fmod_vc.lib;fmodL_vc.lib;XInput.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <FunctionLevelLinking>
+      </FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>\GameDev\imgui-1.89.1;\GameDev\imgui-1.89.1\backends</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;opengl32.lib;glew32.lib;glfw3.lib;fmod_vc.lib;fmodL_vc.lib;XInput.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>\GameDev\SDL2-devel-2.24.2-VC\SDL2-2.24.2\lib\x86;\GameDev\Audio\lib;\GameDev\OpenGL\lib;\GameDev\glfw-3.3.8.bin.WIN32\glfw-3.3.8.bin.WIN32\lib-vc2022</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -123,6 +133,9 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\GameDev\Audio\lib;</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;fmod_vc.lib;fmodL_vc.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>fmod_vc.lib; fmodL_vc.lib %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -139,24 +152,54 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;fmod_vc.lib;fmodL_vc.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Engine\Core\Layer.cpp" />
+    <ClCompile Include="Engine\Core\LayerStack.cpp" />
+    <ClCompile Include="Engine\imgui\imgui.cpp" />
+    <ClCompile Include="Engine\imgui\imgui_demo.cpp" />
+    <ClCompile Include="Engine\imgui\imgui_draw.cpp" />
+    <ClCompile Include="Engine\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="Engine\imgui\imgui_impl_sdl.cpp" />
+    <ClCompile Include="Engine\imgui\imgui_tables.cpp" />
+    <ClCompile Include="Engine\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="Engine\Math\AABB.cpp" />
+    <ClCompile Include="Engine\Audio\AudioHandler.cpp" />
+    <ClCompile Include="Engine\Audio\AudioSource.cpp" />
+    <ClCompile Include="Engine\FX\Particle System\Emitter.cpp" />
+    <ClCompile Include="Engine\FX\Particle System\Particle.cpp" />
+    <ClCompile Include="Engine\Input\InputHandler.cpp" />
+    <ClCompile Include="Engine\Input\XBoxController.cpp" />
+    <ClCompile Include="Engine\Rendering\Gui\ButtonComponent.cpp" />
+    <ClCompile Include="Engine\Components\Rigidbody.cpp" />
     <ClCompile Include="Engine\Math\CollisionHandler.cpp" />
     <ClCompile Include="Engine\Math\CollisionDetection.cpp" />
     <ClCompile Include="Engine\Camera\Camera.cpp" />
     <ClCompile Include="Engine\Core\Debug.cpp" />
     <ClCompile Include="Engine\Core\Engine.cpp" />
     <ClCompile Include="Engine\Rendering\3D\GameObject.cpp" />
+    <ClCompile Include="Engine\Rendering\RenderAPI\Buffer.cpp" />
+    <ClCompile Include="Engine\Rendering\RenderAPI\OpenGLBuffer.cpp" />
+    <ClCompile Include="Engine\Rendering\RenderAPI\OpenGL\OpenGLRendererAPI.cpp" />
+    <ClCompile Include="Engine\Rendering\RenderAPI\OpenGLVertexArray.cpp" />
+    <ClCompile Include="Engine\Rendering\RenderAPI\RenderCommand.cpp" />
+    <ClCompile Include="Engine\Rendering\RenderAPI\RendererAPI.cpp" />
+    <ClCompile Include="Engine\Rendering\RenderAPI\VertexArray.cpp" />
     <ClCompile Include="Engine\Rendering\SceneGraph.cpp">
       <DeploymentContent>true</DeploymentContent>
     </ClCompile>
     <ClCompile Include="Engine\Events\EventListener.cpp" />
     <ClCompile Include="Engine\Math\Frustum.cpp" />
+    <ClCompile Include="Engine\Events\Event.cpp" />
     <ClCompile Include="Game\Scenes\GameScene.cpp" />
     <ClCompile Include="Game\Game1.cpp" />
     <ClCompile Include="Engine\FX\LightSource.cpp" />
     <ClCompile Include="Engine\Rendering\3D\LoadOBJModel.cpp" />
+    <ClCompile Include="Engine\Rendering\Gui\GUIObject.cpp" />
+    <ClCompile Include="Engine\Rendering\Gui\GUIImageComponent.cpp" />
+    <ClCompile Include="Engine\Core\ImguiWindow.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Engine\Core\Window.cpp" />
     <ClCompile Include="Engine\Core\Timer.cpp" />
@@ -169,8 +212,38 @@
     <ClCompile Include="Engine\FX\MaterialLoader.cpp" />
     <ClCompile Include="Engine\Events\MouseEventListener.cpp" />
     <ClCompile Include="Engine\Core\OctSpatialPartition.cpp" />
+    <ClCompile Include="Engine\Rendering\Gui\SpriteSurface.cpp" />
+    <ClCompile Include="Engine\Components\Transform.cpp" />
+    <ClCompile Include="Engine\Math\PhysicsSolver.cpp" />
+    <ClCompile Include="Plan.cpp" />
+    <ClCompile Include="Engine\Rendering\RenderAPI\Renderer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\Rendering\RenderAPI\Buffer.h" />
+    <ClInclude Include="Engine\Core\include.h" />
+    <ClInclude Include="Engine\Core\Layer.h" />
+    <ClInclude Include="Engine\Core\LayerStack.h" />
+    <ClInclude Include="Engine\Events\KeyEvent.h" />
+    <ClInclude Include="Engine\Events\MouseEvent.h" />
+    <ClInclude Include="Engine\imgui\imconfig.h" />
+    <ClInclude Include="Engine\imgui\imgui.h" />
+    <ClInclude Include="Engine\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="Engine\imgui\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="Engine\imgui\imgui_impl_sdl.h" />
+    <ClInclude Include="Engine\imgui\imgui_internal.h" />
+    <ClInclude Include="Engine\imgui\imstb_rectpack.h" />
+    <ClInclude Include="Engine\imgui\imstb_textedit.h" />
+    <ClInclude Include="Engine\imgui\imstb_truetype.h" />
+    <ClInclude Include="Engine\Math\AABB.h" />
+    <ClInclude Include="Engine\Audio\AudioHandler.h" />
+    <ClInclude Include="Engine\Audio\AudioSource.h" />
+    <ClInclude Include="Engine\FX\Particle System\Emitter.h" />
+    <ClInclude Include="Engine\FX\Particle System\Particle.h" />
+    <ClInclude Include="Engine\Input\InputHandler.h" />
+    <ClInclude Include="Engine\Input\XBoxController.h" />
+    <ClInclude Include="Engine\Rendering\Gui\ButtonComponent.h" />
+    <ClInclude Include="Engine\Components\Rigidbody.h" />
+    <ClInclude Include="Engine\Components\Component.h" />
     <ClInclude Include="Engine\Math\CollisionHandler.h" />
     <ClInclude Include="Engine\Math\CollisionDetection.h" />
     <ClInclude Include="Engine\Math\BoundingBox.h" />
@@ -183,9 +256,17 @@
     <ClInclude Include="Engine\Core\GameInterface.h" />
     <ClInclude Include="Engine\Math\Ray.h" />
     <ClInclude Include="Engine\Rendering\3D\GameObject.h" />
+    <ClInclude Include="Engine\Rendering\RenderAPI\OpenGLBuffer.h" />
+    <ClInclude Include="Engine\Rendering\RenderAPI\OpenGL\OpenGLRendererAPI.h" />
+    <ClInclude Include="Engine\Rendering\RenderAPI\OpenGLVertexArray.h" />
+    <ClInclude Include="Engine\Rendering\RenderAPI\RenderCommand.h" />
+    <ClInclude Include="Engine\Rendering\RenderAPI\RendererAPI.h" />
+    <ClInclude Include="Engine\Rendering\RenderAPI\ShaderThing.h" />
+    <ClInclude Include="Engine\Rendering\RenderAPI\VertexArray.h" />
     <ClInclude Include="Engine\Rendering\SceneGraph.h" />
     <ClInclude Include="Engine\Events\EventListener.h" />
     <ClInclude Include="Engine\Math\Frustum.h" />
+    <ClInclude Include="Engine\Events\Event.h" />
     <ClInclude Include="Game\Scenes\GameScene.h" />
     <ClInclude Include="Game\Game1.h" />
     <ClInclude Include="Game\Scenes\StartScene.h" />
@@ -199,15 +280,39 @@
     <ClInclude Include="Engine\FX\MaterialLoader.h" />
     <ClInclude Include="Engine\Events\MouseEventListener.h" />
     <ClInclude Include="Engine\Core\OctSpatialPartition.h" />
+    <ClInclude Include="Engine\Rendering\Gui\GUIObject.h" />
+    <ClInclude Include="Engine\Rendering\Gui\GUIImageComponent.h" />
+    <ClInclude Include="Engine\Rendering\Gui\GUIComponent.h" />
+    <ClInclude Include="Engine\Rendering\Gui\SpriteSurface.h" />
+    <ClInclude Include="Engine\Math\PhysicsSolver.h" />
+    <ClInclude Include="Engine\Core\ImguiWindow.h" />
+    <ClInclude Include="Plan.h" />
+    <ClInclude Include="Engine\Rendering\RenderAPI\Renderer.h" />
+    <ClInclude Include="Resources\rapidxml.hpp" />
+    <ClInclude Include="Engine\Components\Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Shaders\ColourFragmentShader.glsl" />
     <None Include="Engine\Shaders\ColourVertexShader.glsl" />
     <None Include="Engine\Shaders\FragmentShader.glsl" />
+    <None Include="Engine\Shaders\ParticleFragShader.glsl" />
+    <None Include="Engine\Shaders\ParticleVertexShader.glsl" />
+    <None Include="Engine\Shaders\SpriteFragShader.glsl" />
+    <None Include="Engine\Shaders\SpriteVertShader.glsl" />
     <None Include="Engine\Shaders\VertexShader.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Resources\Textures\Apple_Body.png" />
+    <Image Include="Resources\Textures\Apple_Stem.png" />
     <Image Include="Resources\Textures\CheckerboardTexture.png" />
+    <Image Include="Resources\Textures\diceTexture.png" />
+    <Image Include="Resources\Textures\WoodArrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Resources\OOF.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Engine\Engine.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

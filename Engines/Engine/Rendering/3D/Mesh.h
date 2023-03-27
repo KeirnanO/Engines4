@@ -9,6 +9,9 @@
 #include "../../Camera/Camera.h"
 #include "../../Graphics/MaterialHandler.h"
 
+#include "..\RenderAPI\Buffer.h"
+#include "..\RenderAPI\VertexArray.h"
+
 struct Vertex {
 	glm::vec3 position;
 	glm::vec3 normal;
@@ -30,6 +33,9 @@ public:
 
 private:
 	void GenerateBuffers();
+	std::shared_ptr<VertexBuffer> m_VertexBuffer;
+	std::shared_ptr<IndexBuffer> m_IndexBuffer;
+	std::shared_ptr<VertexArray> m_VertexArray;
 	GLuint VAO, VBO;
 	SubMesh subMesh;
 	GLuint shaderProgram;

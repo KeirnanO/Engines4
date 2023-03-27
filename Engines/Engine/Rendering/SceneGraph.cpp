@@ -3,6 +3,8 @@
 std::unique_ptr<SceneGraph> SceneGraph::sceneGraphInstance = nullptr;
 std::unordered_map<GLuint, std::vector<Model*>> SceneGraph::sceneModels = std::unordered_map<GLuint, std::vector<Model*>>();
 std::map<std::string, GameObject*> SceneGraph::sceneGameObjects = std::map<std::string, GameObject*>();
+std::map<std::string, GUIObject*> SceneGraph::GUIObjects = std::map<std::string, GUIObject*>();
+
 
 SceneGraph::SceneGraph() {
 }
@@ -49,7 +51,7 @@ void SceneGraph::AddModel(Model* model_){
 	sceneModels[shader].push_back(model_);
 }
 
-//Quesiton**
+
 void SceneGraph::AddGameObject(GameObject* go_, std::string tag_){
 	if (tag_ == "") {
 		std::string newTag = "GameObject" + std::to_string(sceneGameObjects.size() + 1);
@@ -66,15 +68,40 @@ void SceneGraph::AddGameObject(GameObject* go_, std::string tag_){
 		go_->SetTag(newTag);
 		sceneGameObjects[newTag] = go_;
 	}
-	//Add bool for collidable;
-	//Possible bool for is raycastable
-	CollisionHandler::GetInstance()->AddObject(go_);
 
+	//CollisionHandler::GetInstance()->AddObject(go_);
 }
 
-GameObject* SceneGraph::GetGameObject(std::string tag_){
+void SceneGraph::AddGUIObject(GUIObject* gui_, std::string tag_) {
+	if (tag_ == "") {
+		std::string newTag = "GameObject" + std::to_string(GUIObjects.size() + 1);
+		gui_->SetTag(newTag);
+		GUIObjects[newTag] = gui_;
+	}
+	else if (GUIObjects.find(tag_) == GUIObjects.end()) {
+		gui_->SetTag(tag_);
+		GUIObjects[tag_] = gui_;
+	}
+	else {
+		Debug::Error("Trying to add a GuiObject with a tag " + tag_ +
+			" that already exists", "SceneGraph.cpp", __LINE__);
+		std::string newTag = "GuiObject" + std::to_string(GUIObjects.size() + 1);
+		gui_->SetTag(newTag);
+		GUIObjects[newTag] = gui_;
+	}
+}
+
+
+GameObject* SceneGraph::GetGameObject(std::string tag_) {
 	if (sceneGameObjects.find(tag_) != sceneGameObjects.end()) {
 		return sceneGameObjects[tag_];
+	}
+	return nullptr;
+}
+
+GUIObject* SceneGraph::GetGUIObject(std::string tag_) {
+	if (GUIObjects.find(tag_) != GUIObjects.end()) {
+		return GUIObjects[tag_];
 	}
 	return nullptr;
 }
@@ -89,6 +116,23 @@ void SceneGraph::Render(Camera* camera_){
 	for (auto go : sceneGameObjects) {
 		go.second->Render(camera_);
 	}
+}
+
+void SceneGraph::Draw(Camera* camera_) {
+
+	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glUseProgram(ShaderHandler::GetInstance()->GetShader("GUIShader"));
+
+	for (auto m : GUIObjects) {
+		m.second->Draw(camera_);
+	}
+
+	glDisable(GL_BLEND);
+	glEnable(GL_DEPTH_TEST);
+
 }
 
 
